@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from './NavBar'
 import Page1 from './LandingPages/Page1';
+import Page2 from './LandingPages/Page2';
 
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -12,10 +13,10 @@ const Home = () => {
   }, []);
 
   return (
-    <div className='px-10 h-screen bg-green-100'>
+    <div className='h-screen bg-green-100'>
         <NavBar />
         <Page1/>
-
+        <Page2/>
     </div>
   )
 }
