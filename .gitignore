@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 *.vscode
+AppData/
+.node_repl_history
+AnypointStudio/

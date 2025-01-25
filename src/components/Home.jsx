@@ -7,7 +7,7 @@ const Home = () => {
         <NavBar />
         <div className='w-full bg-amber-100'>
 
-            
+            Home Page
             
         </div>
     </div>
