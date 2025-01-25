@@ -105,6 +105,9 @@ const SignIn = () => {
             <Link to="/signup" className="text-sm text-blue-600">
               Not have an account? Create a new account
             </Link>
+            <Link to="/" className="text-sm text-blue-600">
+              Home
+            </Link>
           </form>
         </div>
       </div>

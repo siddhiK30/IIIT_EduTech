@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from './NavBar'
+import Page1 from './LandingPages/Page1';
 
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -11,13 +12,10 @@ const Home = () => {
   }, []);
 
   return (
-    <div className='px-10'>
+    <div className='px-10 h-screen bg-green-100'>
         <NavBar />
-        <div className={`w-full h-screen text-center text-2xl bg-amber-100 transition-transform duration-[1.5s] ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
+        <Page1/>
 
-            Home Page
-            
-        </div>
     </div>
   )
 }
