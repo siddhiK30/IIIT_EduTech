@@ -13,7 +13,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className='h-screen bg-green-100'>
+    <div className='h-full bg-[#dee0e0]'>
         <NavBar />
         <Page1/>
         <Page2/>
