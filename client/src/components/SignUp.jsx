@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
+import { signup } from '../actions/projectActions';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +11,7 @@ const SignUp = () => {
     password2: '',
   });
   const [animateLeft, setAnimateLeft] = useState(false);
-    const [animateRight, setAnimateRight] = useState(false);
+  const [animateRight, setAnimateRight] = useState(false);
   
     useEffect(() => {
       // Reset animation states when component mounts (re-renders)
@@ -29,19 +30,19 @@ const SignUp = () => {
 
   const { name, email, password, password2 } = formData;
 
-  // const dispatch = useDispatch();
-  // const userSignup = useSelector((state) => state.userSignup) || {};
-  // const { loading, error, userInfo } = userSignup;
+  const dispatch = useDispatch();
+  const userSignup = useSelector((state) => state.userSignup) || {};
+  const { loading, error, userInfo } = userSignup;
 
   const navigate = useNavigate(); // useNavigate hook from react-router-dom to navigate to a new page when signup is successful
 
-  // useEffect(() => {
-  //     if (userInfo) {
-  //         // Handle successful signup (e.g., redirect to a different page)
-  //         alert('Signup successful');
-  //         console.log('Signup successful', userInfo);
-  //     }
-  // }, [userInfo]);
+  useEffect(() => {
+      if (userInfo) {
+          // Handle successful signup (e.g., redirect to a different page)
+          alert('Signup successful');
+          console.log('Signup successful', userInfo);
+      }
+  }, [userInfo]);
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -54,7 +55,7 @@ const SignUp = () => {
       return;
     } else {
       // signup logic here
-      // dispatch(signup(name, email, password,password2));
+      dispatch(signup(name, email, password,password2));
       setFormData({ name: '', email: '', password: '', password2: '' });
       console.log('Form submitted');
     }

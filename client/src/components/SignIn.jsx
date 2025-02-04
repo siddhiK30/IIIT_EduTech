@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { loginProject } from '../actions/projectActions';
+import { useDispatch, useSelector } from 'react-redux'
+
+
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [animateLeft, setAnimateLeft] = useState(false);
   const [animateRight, setAnimateRight] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const navigate=useNavigate()
+
 
   useEffect(() => {
     // Reset animation states when component mounts (re-renders)
@@ -24,16 +30,25 @@ const SignIn = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    console.log('Login successful');
-    // Reset form inputs
-    setEmail('');
-    setPassword('');
-    // Redirect to dashboard page or handle login logic
-    navigate('/');
 
-  };
+
+
+    const auth = useSelector((state) => state.userLogin);
+    const { loading, error, userInfo,isAuthenticated } = auth;
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        dispatch(loginProject(email, password));
+
+    };
+
+    if(isAuthenticated){
+      console.log(userInfo)
+      navigate('/')
+      return;
+  }
+
+ 
 
   return (
     <div className="flex h-screen">
