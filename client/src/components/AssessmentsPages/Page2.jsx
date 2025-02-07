@@ -34,7 +34,7 @@ const Page2 = () => {
   };
 
   const handleNext = () => {
-    if (selectedOption === questions[currentQuestion].correctAnswer) {
+    if (selectedOption === questions[currentQuestion].correctAnswer){
       setScore(score + 1);
     }
     setSelectedOption('');
