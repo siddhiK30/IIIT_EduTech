@@ -63,7 +63,7 @@ const SignUp = () => {
     navigate('/signin')
   };
   return (
-    <div className='flex h-screen'>
+    <div className='flex h-screen bg-[#dee0e0]'>
       {/* Left div */}
       <div
         className={`w-1/2 h-screen overflow-hidden flex transform ${animateLeft ? 'translate-x-0' : '-translate-x-full'

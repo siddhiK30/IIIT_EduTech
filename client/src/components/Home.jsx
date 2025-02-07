@@ -14,7 +14,7 @@ const Home = () => {
 
   return (
     <div className='h-full bg-[#dee0e0]'>
-        <NavBar />
+        {/* <NavBar /> */}
         <Page1/>
         <Page2/>
     </div>

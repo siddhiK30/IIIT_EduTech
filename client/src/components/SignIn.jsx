@@ -51,7 +51,7 @@ const SignIn = () => {
  
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-[#dee0e0] overflow-hidden">
       {/* Left div */}
       <div
         className={`w-1/2 h-screen overflow-hidden flex transform ${

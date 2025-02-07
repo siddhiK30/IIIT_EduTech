@@ -70,7 +70,7 @@ const NavBar = () => {
 
     return (
         <div
-            className={`h-[70px] flex items-center justify-center mx-10 px-10 pt-10 transition-transform duration-[1.5s] ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+            className={`h-[70px] bg-[#dee0e0] flex items-center justify-center px-10 transition-transform duration-[1.5s] ease-in-out ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
                 }`}
         >
             <Link to="/" className="text-black text-3xl mb-4">
@@ -97,7 +97,7 @@ const NavBar = () => {
                     </div>
                 </nav>
             </div>
-            <div className="w-50 h-16 flex justify-around">
+            <div className="w-50 h-16 flex justify-around py-3">
                 {/* <div className="flex justify-center items-center h-full">
                     <Link
                         to="/signin"
