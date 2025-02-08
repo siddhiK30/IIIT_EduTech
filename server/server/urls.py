@@ -19,6 +19,7 @@ from django.urls import path,include
 
 # from rest_framework.authtoken.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
+from mentors.views import MentorViewSet
 
 
 urlpatterns = [
@@ -26,4 +27,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
+    path('mentors/', MentorViewSet.as_view({'get': 'list', 'post':'create'}), name='mentors-list'),
+    path('mentors/<int:pk>/', MentorViewSet.as_view({'get':'retrieve'}), name='mentors-detail'),
 ]

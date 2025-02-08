@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_USERDETAIL_FAIL, GET_USERDETAIL_REQUEST, GET_USERDETAIL_SUCCESS, LOGIN_PROJECT_FAIL, LOGIN_PROJECT_REQUEST, LOGIN_PROJECT_SUCCESS, LOGOUT_PROJECT, SIGNUP_PROJECT_FAIL, SIGNUP_PROJECT_REQUEST, SIGNUP_PROJECT_SUCCESS } from '../constants/projectConstants';
+import { DETECT_EMOTION_FAIL, DETECT_EMOTION_REQUEST, DETECT_EMOTION_SUCCESS, GET_USERDETAIL_FAIL, GET_USERDETAIL_REQUEST, GET_USERDETAIL_SUCCESS, LOGIN_PROJECT_FAIL, LOGIN_PROJECT_REQUEST, LOGIN_PROJECT_SUCCESS, LOGOUT_PROJECT, MENTORS_FAIL, MENTORS_REQUEST, MENTORS_SUCCESS, SIGNUP_PROJECT_FAIL, SIGNUP_PROJECT_REQUEST, SIGNUP_PROJECT_SUCCESS } from '../constants/projectConstants';
 
 
 export const signup = (name, email, password, password2) => async (dispatch) => {
@@ -92,3 +92,72 @@ export const getUserDetails = (token,userId) => async (dispatch) => {
         });
     }
   };
+
+  export const emotionReducer = (state = { emotion: '' }, action) => {
+    switch (action.type) {
+      case DETECT_EMOTION_REQUEST:
+        return { loading: true };
+      case DETECT_EMOTION_SUCCESS:
+        return { loading: false, emotion: action.payload.emotion };
+      case DETECT_EMOTION_FAIL:
+        return { loading: false, error: action.payload };
+      default:
+        return state;
+    }
+};
+
+export const detectEmotion = (frame) => async (dispatch) => {
+    try {
+      dispatch({ type: DETECT_EMOTION_REQUEST });
+  
+      const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+      const { data } = await axios.post('/api/emotion/', frame, config);
+  
+      dispatch({ type: DETECT_EMOTION_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: DETECT_EMOTION_FAIL,
+        payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+      });
+    }
+};
+
+
+export const getLectures = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_LECTURES_REQUEST });
+
+    const { data } = await axios.get('/api/lectures/');  // Update this URL as per your backend
+
+    dispatch({
+      type: GET_LECTURES_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_LECTURES_FAIL,
+      payload: error.response && error.response.data.detail
+        ? error.response.data.detail
+        : error.message,
+    });
+  }
+};
+
+export const listMentors = () => async (dispatch) => {
+  try {
+    dispatch({ type: MENTORS_REQUEST });
+
+    const { data } = await axios.get('http://127.0.0.1:8000/mentors/');  // Adjust the URL to match your API endpoint
+    dispatch({
+      type: MENTORS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: MENTORS_FAIL,
+      payload: error.response && error.response.data.detail
+        ? error.response.data.detail
+        : error.message,
+    });
+  }
+};

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 
-
-const Page2 = () => {
+const Page2 = ({ setActivePage }) => {
   const questions = [
     {
       id: 1,
@@ -27,22 +25,17 @@ const Page2 = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState('');
   const [score, setScore] = useState(0);
-  const navigate=useNavigate()
-
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-  };
 
   const handleNext = () => {
-    if (selectedOption === questions[currentQuestion].correctAnswer){
+    if (selectedOption === questions[currentQuestion].correctAnswer) {
       setScore(score + 1);
     }
     setSelectedOption('');
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
-      // alert(`Quiz Completed! Your Score: ${score + 1}/${questions.length}`);
-      navigate('/assessment')
+      // Redirect to Page1 (Progress Reports)
+      setActivePage('Page1');
     }
   };
 
@@ -62,7 +55,7 @@ const Page2 = () => {
             className={`p-3 border rounded-lg text-left ${
               selectedOption === option ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'
             }`}
-            onClick={() => handleOptionClick(option)}
+            onClick={() => setSelectedOption(option)}
           >
             {option}
           </button>

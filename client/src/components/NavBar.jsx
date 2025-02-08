@@ -76,12 +76,17 @@ const NavBar = () => {
             <Link to="/" className="text-black text-3xl mb-4">
                 HackoFiesta
             </Link>
-            <div className="w-1/3 m-auto my-5 rounded-md">
+            <div className="w-2/3 m-auto my-5 rounded-md">
                 <nav className="flex items-center w-full h-16 bg-gray-800 rounded-full">
                     <div className="flex justify-around w-full text-3xl h-full">
                         <div className="bg-gray-800 hover:bg-gray-500 h-full w-1/3 rounded-full text-center flex items-center justify-center transition-transform duration-300 hover:translate-x-2">
                             <Link to="" className="text-white">
                                 Home
+                            </Link>
+                        </div>
+                        <div className="bg-gray-800 hover:bg-gray-500 h-full w-1/3 rounded-full text-center flex items-center justify-center transition-transform duration-300 hover:translate-x-2">
+                            <Link to="" className="text-white">
+                                Connect
                             </Link>
                         </div>
                         <div className="bg-gray-800 hover:bg-gray-500 h-full w-1/3 rounded-full text-center flex items-center justify-center transition-transform duration-300 hover:-translate-x-2">

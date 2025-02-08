@@ -1,7 +1,7 @@
 import {combineReducers,createStore,applyMiddleware} from 'redux'
 import {thunk} from 'redux-thunk'
 import { composeWithDevTools } from '@redux-devtools/extension';
-import { signupProjectReducers,loginProjectReducers, userDetailReducers } from './reducers/projectReducers';
+import { signupProjectReducers,loginProjectReducers, userDetailReducers, mentorsListReducer } from './reducers/projectReducers';
 
 
 
@@ -9,7 +9,8 @@ import { signupProjectReducers,loginProjectReducers, userDetailReducers } from '
 const rootReducer = combineReducers({
     userSignup:signupProjectReducers,
     userLogin: loginProjectReducers,
-    userDetails:userDetailReducers
+    userDetails:userDetailReducers,
+    mentorsList:mentorsListReducer
 })
 
 
