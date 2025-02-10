@@ -28,7 +28,7 @@ const MentorsList = () => {
     }, [dispatch]);
 
     return (
-        <div className='px-20'>
+        <div className='px-20 h-screen'>
             <h2 className="text-5xl font-bold text-center pt-5 font-serif">Learn From <span className='text-blue-900'>Your </span>Mentors</h2>
 
             {loading ? (
