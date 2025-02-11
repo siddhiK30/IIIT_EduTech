@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { DETECT_EMOTION_FAIL, DETECT_EMOTION_REQUEST, DETECT_EMOTION_SUCCESS, GET_USERDETAIL_FAIL, GET_USERDETAIL_REQUEST, GET_USERDETAIL_SUCCESS, LOGIN_PROJECT_FAIL, LOGIN_PROJECT_REQUEST, LOGIN_PROJECT_SUCCESS, LOGOUT_PROJECT, MENTORS_FAIL, MENTORS_REQUEST, MENTORS_SUCCESS, SIGNUP_PROJECT_FAIL, SIGNUP_PROJECT_REQUEST, SIGNUP_PROJECT_SUCCESS } from '../constants/projectConstants';
+import { DETECT_EMOTION_FAIL, DETECT_EMOTION_REQUEST, DETECT_EMOTION_SUCCESS, GET_USERDETAIL_FAIL, GET_USERDETAIL_REQUEST, GET_USERDETAIL_SUCCESS, LOGIN_PROJECT_FAIL, LOGIN_PROJECT_REQUEST, LOGIN_PROJECT_SUCCESS, LOGOUT_PROJECT, MENTORS_FAIL, MENTORS_REQUEST, MENTORS_SUCCESS, POST_BLOG_FAIL, POST_BLOG_REQUEST, POST_BLOG_SUCCESS, SIGNUP_PROJECT_FAIL, SIGNUP_PROJECT_REQUEST, SIGNUP_PROJECT_SUCCESS } from '../constants/projectConstants';
 
 
 export const signup = (name, email, password, password2) => async (dispatch) => {
@@ -158,6 +158,22 @@ export const listMentors = () => async (dispatch) => {
       payload: error.response && error.response.data.detail
         ? error.response.data.detail
         : error.message,
+    });
+  }
+};
+
+export const postBlog = (blogData) => async (dispatch) => {
+  try {
+    dispatch({ type: POST_BLOG_REQUEST });
+
+    const config = { headers: { 'Content-Type': 'application/json' } };
+    const { data } = await axios.post('http://127.0.0.1:8000/blog/', blogData, config);
+
+    dispatch({ type: POST_BLOG_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: POST_BLOG_FAIL,
+      payload: error.response && error.response.data.detail ? error.response.data.detail : error.message,
     });
   }
 };

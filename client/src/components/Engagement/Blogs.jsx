@@ -11,7 +11,9 @@
 // export default Blogs
 
 import React, { useEffect, useState } from 'react';
+import moduleName from 'react'
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import RightArrow from '../../assests/arrow-right-double-fill.png';
 import axios from 'axios'
 import {
@@ -26,6 +28,7 @@ import {
     Download,
     Maximize
 } from 'lucide-react';
+import { postBlog } from '../../actions/projectActions';
 
 // const blogData = [
 //     {
@@ -117,6 +120,11 @@ const Blogs = () => {
     const [topics,setTopic]=useState('')
     const [blog,setBlog]=useState([])
 
+    const dispatch=useDispatch()
+
+    const blogPost = useSelector((state) => state.blogPost);
+    const { loading, success, error } = blogPost;
+
     const handleFileUpload = () => {
         const input = document.createElement('input');
         input.type = 'file';
@@ -160,11 +168,8 @@ const Blogs = () => {
 
     const handlePublish = () => {
         if (content.trim()) {
-            console.log('Post published successfully! by',name,'On topic:',topics);
-            alert('Post published successfully!');
-            setContent('');
-            setName('');
-            setTopic('');
+            const blogData = { title, author: name, keytopics: topics, content };
+            dispatch(postBlog(blogData));
         } else {
             alert('Please write something before publishing!');
         }
@@ -198,7 +203,6 @@ const Blogs = () => {
                                 <img src={RightArrow} alt="" className='w-[40px] h-[40px]' />
                             </div>
                         </div>
-
                     ))}
                 </Link>
             </div>

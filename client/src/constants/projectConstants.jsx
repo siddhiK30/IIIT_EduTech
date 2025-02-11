@@ -25,5 +25,9 @@ export const MENTORS_REQUEST = 'MENTORS_REQUEST';
 export const MENTORS_SUCCESS = 'MENTORS_SUCCESS';
 export const MENTORS_FAIL = 'MENTORS_FAIL';
 
+export const POST_BLOG_REQUEST = 'POST_BLOG_REQUEST';
+export const POST_BLOG_SUCCESS = 'POST_BLOG'
+ export const POST_BLOG_FAIL = 'POST_BLOG_FAIL';
+
 
 
