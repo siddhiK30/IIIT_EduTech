@@ -1,76 +1,133 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const Page2 = ({ setActivePage }) => {
-  const questions = [
-    {
-      id: 1,
-      question: 'What is the capital of France?',
-      options: ['Paris', 'Berlin', 'Madrid', 'Rome'],
-      correctAnswer: 'Paris',
-    },
-    {
-      id: 2,
-      question: 'Which planet is known as the Red Planet?',
-      options: ['Earth', 'Mars', 'Venus', 'Jupiter'],
-      correctAnswer: 'Mars',
-    },
-    {
-      id: 3,
-      question: 'Who wrote "Romeo and Juliet"?',
-      options: ['William Shakespeare', 'Charles Dickens', 'Mark Twain', 'Jane Austen'],
-      correctAnswer: 'William Shakespeare',
-    },
-  ];
-
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+const Page2 = () => {
+  const [question, setQuestion] = useState(null);
   const [selectedOption, setSelectedOption] = useState('');
+  const [loading, setLoading] = useState(false);
   const [score, setScore] = useState(0);
+  const [correctStreak, setCorrectStreak] = useState(0);
+  const [questionNumber, setQuestionNumber] = useState(1);
+  const [quizFinished, setQuizFinished] = useState(false);
 
-  const handleNext = () => {
-    if (selectedOption === questions[currentQuestion].correctAnswer) {
-      setScore(score + 1);
+  const fetchQuestion = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/mcq/question/');
+      setQuestion(response.data);
+      setScore(response.data.score);
+      setCorrectStreak(response.data.correct_streak);
+      setSelectedOption('');
+    } catch (error) {
+      console.error('Error fetching question:', error);
     }
-    setSelectedOption('');
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      // Redirect to Page1 (Progress Reports)
-      setActivePage('Page1');
+    setLoading(false);
+  };
+
+  const submitAnswer = async () => {
+    if (!selectedOption) return alert('Please select an option!');
+
+    try {
+      await axios.post('http://127.0.0.1:8000/mcq/submit-answer/', {
+        question_id: question.id,
+        selected_option: selectedOption,
+      });
+
+      if (questionNumber < 10) {
+        setQuestionNumber(prev => prev + 1);
+        fetchQuestion(); // Load the next question
+      } else {
+        setQuizFinished(true); 
+      }
+    } catch (error) {
+      console.error('Error submitting answer:', error);
     }
   };
 
-  return (
-    <div className="p-10 bg-white rounded-lg shadow-xl">
-      <h2 className="text-2xl font-bold mb-4">Quiz Page</h2>
-      <div className="mb-6">
-        <div className="text-lg font-semibold">
-          Question {currentQuestion + 1} of {questions.length}
-        </div>
-        <p className="mt-2 text-gray-700">{questions[currentQuestion].question}</p>
-      </div>
-      <div className="grid grid-cols-2 gap-4 mb-6">
-        {questions[currentQuestion].options.map((option, index) => (
+  const resetQuiz = async () => {
+    try {
+      await axios.post('http://127.0.0.1:8000/mcq/reset-quiz/');
+      setQuestionNumber(1);
+      setQuizFinished(false);
+      fetchQuestion(); // Reload the first question
+    } catch (error) {
+      console.error('Error resetting quiz:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchQuestion();
+  }, []);
+
+  if (loading) {
+    return <div className="text-center text-2xl font-bold p-10">Loading...</div>;
+  }
+
+  if (quizFinished) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
+        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl text-center">
+          <h1 className="text-3xl font-bold mb-6">Quiz Finished!</h1>
+          <p className="text-lg">Your final score is: <span className="font-bold">{score}</span></p>
+          <p className="text-lg">Correct Streak: <span className="font-bold">{correctStreak}</span></p>
           <button
-            key={index}
-            className={`p-3 border rounded-lg text-left ${
-              selectedOption === option ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'
-            }`}
-            onClick={() => setSelectedOption(option)}
+            onClick={resetQuiz}
+            className="bg-blue-500 text-white px-6 py-2 rounded-lg mt-6 hover:bg-blue-600"
           >
-            {option}
+            Restart Quiz
           </button>
-        ))}
-      </div>
-      <div className="flex justify-between items-center">
-        <div className="text-gray-600">
-          Score: <span className="font-bold">{score}</span>
         </div>
-        <button
-          className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
-          onClick={handleNext}
-        >
-          {currentQuestion < questions.length - 1 ? 'Next' : 'Finish'}
-        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+        <h1 className="text-3xl font-bold text-center mb-6">Quiz App</h1>
+
+        {question ? (
+          <div>
+            <div className="flex justify-between mb-4">
+              <p className="text-lg">Question: <span className="font-bold">{questionNumber}/10</span></p>
+              <p className="text-lg">Difficulty: <span className="font-bold">{question.difficulty}</span></p>
+            </div>
+
+            <h2 className="text-xl font-semibold mb-4">{question.text}</h2>
+            <div className="space-y-3">
+              {question.options.map((option, index) => (
+                <div key={index} className="flex items-center">
+                  <input
+                    type="radio"
+                    id={`option-${index}`}
+                    name="option"
+                    value={option}
+                    className="mr-2"
+                    onChange={() => setSelectedOption(option)}
+                    checked={selectedOption === option}
+                  />
+                  <label htmlFor={`option-${index}`} className="text-lg">{option}</label>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={submitAnswer}
+              className="bg-blue-500 text-white px-6 py-2 rounded-lg mt-6 hover:bg-blue-600"
+            >
+              Submit Answer
+            </button>
+
+            <div className="mt-8">
+              <p className="text-lg">Score: <span className="font-bold">{score}</span></p>
+              <p className="text-lg">Correct Streak: <span className="font-bold">{correctStreak}</span></p>
+            </div>
+          </div>
+        ) : (
+          <div className="text-center">
+            <p className="text-lg">No more questions available.</p>
+          </div>
+        )}
       </div>
     </div>
   );

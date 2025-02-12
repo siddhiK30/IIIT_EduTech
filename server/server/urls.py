@@ -30,5 +30,6 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('mentors/', MentorViewSet.as_view({'get': 'list', 'post':'create'}), name='mentors-list'),
     path('mentors/<int:pk>/', MentorViewSet.as_view({'get':'retrieve'}), name='mentors-detail'),
-    path('blog/',BlogViewSet.as_view({'get':'list','post':'create'}),name='Blogs')
+    path('blog/',BlogViewSet.as_view({'get':'list','post':'create'}),name='Blogs'),
+    path('mcq/',include('mcq.urls'))
 ]

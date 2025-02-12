@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'user',
     'mentors',
     'blog',
+    'mcq',
     'rest_framework',
     'corsheaders'
 ]
