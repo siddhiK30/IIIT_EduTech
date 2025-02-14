@@ -39,8 +39,8 @@ const Page2 = () => {
           isVisible ? "scale-100" : "scale-0"
         }`}
       >
-        <p className="text-8xl font-serif font-extrabold pb-5">Explore</p>
-        <p className="text-8xl font-serif font-extrabold">
+        <p className="text-6xl font-serif font-extrabold pb-5">Explore</p>
+        <p className="text-6xl font-serif font-extrabold">
           all <span className="text-green-900">Features</span>...
         </p>
       </div>
