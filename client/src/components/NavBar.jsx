@@ -6,33 +6,36 @@ import { getUserDetails, logoutProject } from '../actions/projectActions';
 
 const NavBar = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
     const dispatch = useDispatch();
+
+
 
     const auth = useSelector((state) => state.userLogin);
     const { loading, error, userInfo, isAuthenticated } = auth;
-    
+
     const userDetails = useSelector((state) => state.userDetails);
     const { user } = userDetails;
     // console.log(user)
-    
+
 
     useEffect(() => {
         if (userInfo) {
             try {
-              const token = userInfo.access;
-              const base64Url = token.split('.')[1];
-              const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-              const decodedPayload = JSON.parse(atob(base64));
-              const userId = decodedPayload.user_id; // Adjust this key based on your token's structure
-      
-              dispatch(getUserDetails(userInfo.access, userId)); // Pass the access token and user ID to fetch details
+                const token = userInfo.access;
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const decodedPayload = JSON.parse(atob(base64));
+                const userId = decodedPayload.user_id; // Adjust this key based on your token's structure
+
+                dispatch(getUserDetails(userInfo.access, userId)); // Pass the access token and user ID to fetch details
             } catch (error) {
-              console.error("Error decoding token:", error);
+                console.error("Error decoding token:", error);
             }
-          }
+        }
     }, [dispatch, userInfo]);
-    
-    
+
+
     const logoutHandler = () => {
         dispatch(logoutProject());
     };
@@ -40,7 +43,7 @@ const NavBar = () => {
     const authlinks = (
         <div className='flex items-center justify-between gap-4'>
             <div className='text-2xl font-bold'>
-               Hiii {user?.name}
+                Hiii {user?.name}
             </div>
             <button type="button" onClick={logoutHandler} className=
                 "text-gray-900 bg-white border border-gray-800 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 ">LogOut
@@ -60,7 +63,7 @@ const NavBar = () => {
             </Link>
         </div>
     )
-    
+
 
     useEffect(() => {
         // Trigger the animation by changing the state after the component mounts
@@ -90,36 +93,45 @@ const NavBar = () => {
                             </Link>
                         </div>
                         <div className="bg-gray-800 hover:bg-gray-500 h-full w-1/3 rounded-full text-center flex items-center justify-center transition-transform duration-300 hover:-translate-x-2">
-                            <Link to="/lectures" className="text-white">
-                                Lectures
+                            <Link to="http://127.0.0.1:5501/index.html" target="_blank" rel="noopener noreferrer" className="text-white">
+                                ARClass
                             </Link>
                         </div>
-                        <div className="bg-gray-800 hover:bg-gray-500 h-full w-1/3 rounded-full text-center flex items-center justify-center transition-transform duration-300 hover:-translate-x-2">
-                            <Link to="/quiz" className="text-white">
-                                Quiz
-                            </Link>
+                        
+                        <div
+                            className="relative bg-gray-800 hover:bg-gray-500 h-full w-1/3 rounded-full text-center flex items-center justify-center transition-transform duration-300 hover:-translate-x-2"
+                            onMouseEnter={() => setShowDropdown(true)}
+                            onClickCapture={() => setShowDropdown(false)}
+                        >
+                            <span className="text-white cursor-pointer">
+                                Visualizsation
+                            </span>
+                            {showDropdown && (
+                                <div className="relative top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl z-50">
+                                    <a
+                                        href="http://127.0.0.1:5500/thesolsystem.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block px-4 py-2 text-lg text-gray-700 hover:bg-gray-100 rounded-t-lg cursor-pointer"
+                                    >
+                                        Solar System
+                                    </a>
+                                    <a
+                                        href="chem3d/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block px-4 py-2 text-lg text-gray-700 hover:bg-gray-100 rounded-b-lg cursor-pointer"
+                                    >
+                                        Second Option
+                                    </a>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </nav>
             </div>
             <div className="w-50 h-16 flex justify-around py-3">
-                {/* <div className="flex justify-center items-center h-full">
-                    <Link
-                        to="/signin"
-                        className="text-black hover:text-white text-2xl hover:bg-gray-800 bg-white border border-black px-6 py-3 rounded-full mr-5 transition duration-600"
-                    >
-                        SignIn
-                    </Link>
-                </div>
-                <div className="flex justify-center items-center h-full">
-                    <Link
-                        to="/signup"
-                        className="text-black hover:text-white text-2xl hover:bg-gray-800 bg-white border border-black px-6 py-3 rounded-full mr-5 transition duration-600"
-                    >
-                        Signup
-                    </Link>
-                </div> */}
-                {isAuthenticated? authlinks : guestlinks}
+                {isAuthenticated ? authlinks : guestlinks}
             </div>
         </div>
     );
