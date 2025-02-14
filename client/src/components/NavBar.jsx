@@ -95,8 +95,8 @@ const NavBar = () => {
                             </Link>
                         </div>
                         <div className="bg-gray-800 hover:bg-gray-500 h-full w-1/3 rounded-full text-center flex items-center justify-center transition-transform duration-300 hover:-translate-x-2">
-                            <Link to="/contact" className="text-white">
-                                Contact
+                            <Link to="/quiz" className="text-white">
+                                Quiz
                             </Link>
                         </div>
                     </div>

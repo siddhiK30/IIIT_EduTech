@@ -18,7 +18,7 @@ def get_difficulty_display(difficulty):
     }
     return difficulty_map.get(difficulty, difficulty.title())
 
-def generate_mcq(difficulty="easy"):
+def generate_mcq(difficulty="hard"):
     """
     Generates an MCQ question using Google Gemini API with clear structure and correct answer tracking.
     

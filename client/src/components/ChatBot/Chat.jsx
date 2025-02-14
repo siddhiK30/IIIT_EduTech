@@ -6,26 +6,85 @@ import axios from 'axios';
 
 const genAI = new GoogleGenerativeAI("AIzaSyApZd8uGx6WJ0EGHEf9xelRoMaSojFrycg");
 
+// Utility functions
+const cleanResponse = (text) => {
+  // Remove markdown-style formatting
+  let cleaned = text
+    .replace(/\*\*/g, '') // Remove bold markers
+    .replace(/\*/g, '')   // Remove italic markers
+    .replace(/`/g, '')    // Remove code markers
+    .replace(/#{1,6}\s/g, '') // Remove heading markers
+    .replace(/\n\s*\n/g, '\n') // Replace multiple newlines with single newline
+    .trim();
+
+  // Format lists properly
+  cleaned = cleaned.split('\n').map(line => {
+    // Remove markdown list markers but keep the content
+    return line.replace(/^[-*•]\s+/, '• ').trim();
+  }).join('\n');
+
+  return cleaned;
+};
+
+const formatResponse = (text) => {
+  // Split into paragraphs and format each
+  const paragraphs = text.split('\n').filter(p => p.trim());
+  
+  return paragraphs.map((paragraph, index) => (
+    <span key={index}>
+      {paragraph}
+      {index < paragraphs.length - 1 && <br />}<br />
+    </span>
+  ));
+};
+
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const [fileProcessing, setFileProcessing] = useState(false);
+  const [documentContext, setDocumentContext] = useState(null);
+  const messagesEndRef = useRef(null);
+
+  // Auto scroll to bottom when new messages arrive
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSendMessage = async () => {
     if (inputMessage.trim()) {
       setMessages(prev => [...prev, { text: inputMessage, sender: 'user' }]);
+      const userQuestion = inputMessage;
       setInputMessage('');
-      
+
       try {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-        const result = await model.generateContent(inputMessage);
-        const response = await result.response;
+        let response;
         
-        setMessages(prev => [...prev, { 
-          text: response.text(), 
-          sender: 'bot' 
-        }]);
+        if (documentContext) {
+          response = await axios.post('http://127.0.0.1:8000/bot/ask-question/', {
+            question: userQuestion
+          });
+          
+          const cleanedResponse = cleanResponse(response.data.answer);
+          setMessages(prev => [...prev, {
+            text: cleanedResponse,
+            sender: 'bot'
+          }]);
+        } else {
+          const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+          const result = await model.generateContent(userQuestion);
+          const geminiResponse = await result.response;
+          
+          const cleanedResponse = cleanResponse(geminiResponse.text());
+          setMessages(prev => [...prev, {
+            text: cleanedResponse,
+            sender: 'bot'
+          }]);
+        }
       } catch (error) {
         console.error('Error:', error);
         setMessages(prev => [...prev, {
@@ -37,24 +96,6 @@ const Chat = () => {
     }
   };
 
-  // Function to process file and get Gemini response
-  const processFileAndGetResponse = async (extractedText, filename) => {
-    try {
-      const prompt = `I have extracted text from the file "${filename}". 
-                     Please analyze this text and provide a clear summary: 
-                     ${extractedText}`;
-
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      return response.text();
-    } catch (error) {
-      console.error('Error processing with Gemini:', error);
-      throw error;
-    }
-  };
-
-  // Function to handle file upload
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -99,7 +140,7 @@ const Chat = () => {
         }
       );
 
-      const { text: extractedText } = response.data;
+      setDocumentContext(response.data.text);
 
       setMessages(prev => [...prev, {
         text: `Uploaded file: ${file.name}`,
@@ -107,12 +148,13 @@ const Chat = () => {
         isFile: true
       }]);
 
-      const geminiResponse = await processFileAndGetResponse(extractedText, file.name);
-
-      setMessages(prev => [...prev, {
-        text: geminiResponse,
-        sender: 'bot'
-      }]);
+      if (response.data.summary) {
+        const cleanedSummary = cleanResponse(response.data.summary);
+        setMessages(prev => [...prev, {
+          text: cleanedSummary,
+          sender: 'bot'
+        }]);
+      }
 
     } catch (error) {
       console.error('Error processing file:', error);
@@ -126,7 +168,13 @@ const Chat = () => {
     }
   };
 
-  // Modified render for file upload button
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
   const renderFileUploadButton = () => (
     <label className={`cursor-pointer hover:bg-gray-100 p-2 rounded-full transition-colors duration-200 
       ${fileProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}>
@@ -141,7 +189,6 @@ const Chat = () => {
     </label>
   );
 
-  // Modified message display to show file uploads differently
   const renderMessage = (message, index) => (
     <div 
       key={index} 
@@ -153,14 +200,15 @@ const Chat = () => {
         </div>
       )}
       <div 
-        className={`max-w-[70%] p-3 rounded-lg ${
+        className={`max-w-[70%] p-3 rounded-lg whitespace-pre-wrap break-words ${
           message.sender === 'user' 
             ? 'bg-blue-500 text-white rounded-br-none' 
             : 'bg-gray-200 text-gray-800 rounded-bl-none'
         } ${message.error ? 'bg-red-100 text-red-600' : ''} 
           ${message.isFile ? 'bg-green-100 text-green-600' : ''}`}
+        style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}
       >
-        {message.text}
+        {message.sender === 'bot' ? formatResponse(message.text) : message.text}
       </div>
     </div>
   );
@@ -186,6 +234,7 @@ const Chat = () => {
         {/* Chat Messages */}
         <div className='h-[calc(90vh-160px)] overflow-y-auto p-4'>
           {messages.map((message, index) => renderMessage(message, index))}
+          <div ref={messagesEndRef} />
         </div>
 
         {/* Input Area */}
@@ -197,9 +246,9 @@ const Chat = () => {
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
               placeholder="Type your message..."
               className='flex-1 border rounded-full px-4 py-2 focus:outline-none focus:border-blue-500'
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
               disabled={fileProcessing}
             />
 
@@ -226,3 +275,6 @@ const Chat = () => {
 };
 
 export default Chat;
+
+
+

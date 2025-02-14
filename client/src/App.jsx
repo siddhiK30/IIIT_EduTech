@@ -9,6 +9,7 @@ import LecturePage1 from './components/Learning/LecturePage1';
 import Blogs from './components/Engagement/Blogs';
 import LectureDetailPage from './components/Learning/LectureDetail';
 import Chat from './components/ChatBot/Chat';
+import Quiz from './components/Quiz';
 
 
 
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/enangement" element={<Blogs/>} />
             <Route path="/lecture/:id" element={<LectureDetailPage/>} />
             <Route path="/support" element={<Chat/>} />
+            <Route path="/quiz" element={<Quiz/>} />
           </Routes>
 
     </div>
