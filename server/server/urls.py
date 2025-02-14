@@ -21,6 +21,11 @@ from django.urls import path,include
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
 from mentors.views import MentorViewSet
 from blog.views import BlogViewSet
+from django.conf.urls.static import static
+from django.conf import settings
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
 
 
 urlpatterns = [
@@ -30,5 +35,9 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('mentors/', MentorViewSet.as_view({'get': 'list', 'post':'create'}), name='mentors-list'),
     path('mentors/<int:pk>/', MentorViewSet.as_view({'get':'retrieve'}), name='mentors-detail'),
-    path('blog/',BlogViewSet.as_view({'get':'list','post':'create'}),name='Blogs')
-]
+    path('blog/',BlogViewSet.as_view({'get':'list','post':'create'}),name='Blogs'),
+    path('mcq/',include('mcq.urls')),
+    path('bot/',include('bot.urls')),
+    path('',include('lectures.urls')),
+
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
