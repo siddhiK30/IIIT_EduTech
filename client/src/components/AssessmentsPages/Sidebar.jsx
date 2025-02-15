@@ -13,8 +13,8 @@ const Sidebar = ({ setActivePage }) => {
         <h3 className="text-xl font-semibold">Welcome {user?.name}</h3>
       </div>
       <div className="space-y-4">
+        <button className="w-full bg-gray-700 p-3 rounded cursor-pointer" onClick={() => setActivePage('Page2')}>Quiz</button>
         <button className="w-full bg-gray-700 p-3 rounded cursor-pointer" onClick={() => setActivePage('Page1')}>Progress Reports</button>
-        <button className="w-full bg-gray-700 p-3 rounded cursor-pointer" onClick={() => setActivePage('Page2')}>Take Quiz</button>
         <button className="w-full bg-gray-700 p-3 rounded cursor-pointer" onClick={() => setActivePage('Page3')}>PTMs</button>
         {/* <button className="w-full bg-gray-700 p-3 rounded" onClick={() => setActivePage('Page4')}>Page 4</button>
         <button className="w-full bg-gray-700 p-3 rounded" onClick={() => setActivePage('Page5')}>Page 5</button> */}

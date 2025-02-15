@@ -6,7 +6,7 @@ import Page2 from './Page2';
 import Page3 from './Page3';
 
 const Main = () => {
-  const [activePage, setActivePage] = useState('Page1');
+  const [activePage, setActivePage] = useState('Page2');
 
   const renderPage = () => {
     switch (activePage) {
@@ -15,9 +15,9 @@ const Main = () => {
       case 'Page2':
         return <Page2 setActivePage={setActivePage} />;  // Pass setActivePage to Page2
       case 'Page3':
-        return <Page3 />;
+        return <Page3 />
       default:
-        return <Page1 />;
+        return <Page2 />;
     }
   };
 

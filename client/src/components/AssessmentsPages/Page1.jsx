@@ -2,7 +2,7 @@ import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { motion } from 'framer-motion';
 
-const Page2 = () => {
+const Page1 = () => {
   const pieData = [
     { name: 'Maths', value: 85 },
     { name: 'Physics', value: 78 },
@@ -271,26 +271,12 @@ const Page2 = () => {
         </motion.div>
       </div>
 
-      {/* Box 3 with Insights Animation */}
-      {/* <motion.div
-        className='px-10 pt-7'
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.2, delay: 0.4 }}
-      >
-        <div className='w-full h-[45vh] border border-gray-400 rounded-2xl shadow-2xl bg-white p-6'>
-          <h3 className='text-xl font-semibold mb-4'>Insights for Improvement</h3>
-          <ul className='list-disc list-inside space-y-2'>
-            <li>Focus on improving concepts in Physics for better performance.</li>
-            <li>Maintain consistency in Biology to sustain recent progress.</li>
-            <li>Work on time management during exams for Maths and Chemistry.</li>
-            <li>Leverage additional resources for Marathi vocabulary improvement.</li>
-            <li>Participate in group discussions to enhance understanding of core topics.</li>
-          </ul>
-        </div>
-      </motion.div> */}
+
     </div>
   );
 };
 
-export default Page2;
+export default Page1;
+
+
+
