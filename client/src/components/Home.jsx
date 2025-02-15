@@ -133,25 +133,25 @@ const Home = () => {
       <NavBar />
       
       <div className="container mx-auto p-4">
-        {/* <video
+        <video
           ref={videoRef}
           id="videoFeed"
           autoPlay
           playsInline
           className="w-full max-w-md mx-auto rounded-lg shadow-lg"
-        /> */}
+        />
         
-        {/* <div className={`mt-4 text-center ${
+        <div className={`mt-4 text-center ${
           detectionStatus === 'Drowsy' ? 'text-red-600' : 'text-green-600'
         }`}>
           <p className="text-lg font-bold">Status: {detectionStatus}</p>
-        </div> */}
+        </div>
         
-        {/* {showAlert && (
+        {showAlert && (
           <div className="mt-4 p-4 bg-red-100 text-red-700 rounded-lg text-center">
             You seem tired. Please take a break and freshen up .
           </div>
-        )} */}
+        )}
       </div>
 
       <Page1 />
