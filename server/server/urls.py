@@ -38,6 +38,8 @@ urlpatterns = [
     path('blog/',BlogViewSet.as_view({'get':'list','post':'create'}),name='Blogs'),
     path('mcq/',include('mcq.urls')),
     path('bot/',include('bot.urls')),
+    path('reports/',include('reports.urls')),
+
     path('',include('lectures.urls')),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

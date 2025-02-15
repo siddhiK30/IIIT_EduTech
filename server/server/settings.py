@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-+xmhgpc_v*@u3dz*k0@5n139*6*&hu39y-f1@7_jq)a)$*v(97
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'blog',
     'mcq',
     'bot',
+    'reports',
     'lectures',
     'rest_framework',
     'corsheaders'
@@ -74,14 +75,14 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS'
-]
+# CORS_ALLOW_METHODS = [
+#     'GET',
+#     'POST',
+#     'PUT',
+#     'PATCH',
+#     'DELETE',
+#     'OPTIONS'
+# ]
 
 
 
@@ -103,10 +104,15 @@ TEMPLATES = [
     },
 ]
 
+
 CORS_ALLOW_HEADERS = [
     "authorization",
     "content-type",
     "x-requested-with",
+    "accept",
+    "accept-encoding",
+    "origin",
+    "user-agent",
 ]
 
 WSGI_APPLICATION = 'server.wsgi.application'
@@ -168,8 +174,6 @@ MEDIA_ROOT = BASE_DIR /'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.UserAccount'
-
-CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

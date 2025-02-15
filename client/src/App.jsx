@@ -10,6 +10,8 @@ import Blogs from './components/Engagement/Blogs';
 import LectureDetailPage from './components/Learning/LectureDetail';
 import Chat from './components/ChatBot/Chat';
 import Quiz from './components/Quiz';
+import SolarSystem from './components/SolarSystem';
+import QRCodeList from './components/QRCodeList';
 
 
 
@@ -29,6 +31,9 @@ const App = () => {
             <Route path="/lecture/:id" element={<LectureDetailPage/>} />
             <Route path="/support" element={<Chat/>} />
             <Route path="/quiz" element={<Quiz/>} />
+            <Route path="/solar" element={<SolarSystem/>} />
+            <Route path="/chem3d" element={<QRCodeList/>} />
+
           </Routes>
 
     </div>
