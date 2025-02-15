@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import {
-    Paperclip, MapPin, Image, Share2, Smile, List, 
+    Paperclip, MapPin, Image, Share2, Smile, List,
     Settings, Camera, Download, Maximize, Sparkles,
     Zap, ChevronRight, Moon, Sun
 } from 'lucide-react';
@@ -46,14 +46,14 @@ const Blogs = () => {
     return (
         <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50'}`}>
             {/* Header */}
-            <motion.div 
+            <motion.div
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 className="relative overflow-hidden"
             >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-90" />
                 <div className="relative z-10 px-6 py-12 text-center">
-                    <motion.h1 
+                    <motion.h1
                         initial={{ scale: 0.8 }}
                         animate={{ scale: 1 }}
                         className="text-6xl font-bold text-white mb-4"
@@ -107,9 +107,8 @@ const Blogs = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: index * 0.1 }}
                                     key={index}
-                                    className={`p-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 ${
-                                        isDarkMode ? 'bg-gray-800' : 'bg-white'
-                                    }`}
+                                    className={`p-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 ${isDarkMode ? 'bg-gray-800' : 'bg-white'
+                                        }`}
                                 >
                                     <div className="flex items-center gap-2 mb-4">
                                         <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
@@ -126,13 +125,15 @@ const Blogs = () => {
                                         <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm">
                                             {post.keytopics}
                                         </span>
-                                        <motion.button
-                                            whileHover={{ scale: 1.1, x: 5 }}
-                                            whileTap={{ scale: 0.9 }}
-                                            className="text-blue-600"
-                                        >
-                                            <ChevronRight />
-                                        </motion.button>
+                                        <Link to={`/blog/${post.id}`}>
+                                            <motion.button
+                                                whileHover={{ scale: 1.1, x: 5 }}
+                                                whileTap={{ scale: 0.9 }}
+                                                className="text-blue-600"
+                                            >
+                                                <ChevronRight />
+                                            </motion.button>
+                                        </Link>
                                     </div>
                                 </motion.div>
                             ))}
