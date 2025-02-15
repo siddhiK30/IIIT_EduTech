@@ -7,7 +7,7 @@ const Sidebar = ({ setActivePage }) => {
     
     console.log(user)
   return (
-    <div className="w-20% bg-gray-800 text-white h-screen p-6">
+    <div className="w-20% bg-gray-800 text-white h-full p-6">
       <div className="flex flex-col items-center mb-10">
         <div className="w-24 h-24 rounded-full bg-gray-600 mb-4"></div>
         <h3 className="text-xl font-semibold">Welcome {user?.name}</h3>
@@ -18,7 +18,6 @@ const Sidebar = ({ setActivePage }) => {
         <button className="w-full bg-gray-700 p-3 rounded cursor-pointer" onClick={() => setActivePage('Page3')}>PTMs</button>
         {/* <button className="w-full bg-gray-700 p-3 rounded" onClick={() => setActivePage('Page4')}>Page 4</button>
         <button className="w-full bg-gray-700 p-3 rounded" onClick={() => setActivePage('Page5')}>Page 5</button> */}
-
       </div>
     </div>
   );
