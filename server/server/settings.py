@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'mcq',
     'bot',
     'reports',
+    'quiz',
     'lectures',
     'rest_framework',
     'corsheaders'

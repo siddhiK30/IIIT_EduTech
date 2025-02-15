@@ -9,10 +9,11 @@ import LecturePage1 from './components/Learning/LecturePage1';
 import Blogs from './components/Engagement/Blogs';
 import LectureDetailPage from './components/Learning/LectureDetail';
 import Chat from './components/ChatBot/Chat';
-import Quiz from './components/Quiz';
+// import Quiz from './components/Quiz';
 import SolarSystem from './components/SolarSystem';
 import QRCodeList from './components/QRCodeList';
 import BlogDetail from './components/Engagement/BlogDetail';
+import Quiz from './components/AssessmentsPages/Quiz';
 
 
 

@@ -39,6 +39,7 @@ urlpatterns = [
     path('mcq/',include('mcq.urls')),
     path('bot/',include('bot.urls')),
     path('reports/',include('reports.urls')),
+    path('quiz/',include('quiz.urls')),
 
     path('',include('lectures.urls')),
 
