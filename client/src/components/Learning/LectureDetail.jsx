@@ -225,19 +225,7 @@ const LectureDetailPage = () => {
             </button>
           )}
 
-          {/* {lecture.file2 && (
-            <button 
-              onClick={() => handleDownload(lecture.file2, 'Resource 2')}
-              className="p-4 bg-gray-400 w-[250px] h-[50px] rounded-full flex justify-between items-center border-b"
-            >
-              <h1 className="text-xl font-bold">Download Notes 2</h1>
-              <div className="w-6 h-6 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z" />
-                </svg>
-              </div>
-            </button>
-          )} */}
+        
 
           <button
             onClick={summarise}
@@ -271,34 +259,7 @@ const LectureDetailPage = () => {
             )}
           </div>
 
-          {/* Preview PDFs
-          {(lecture.file1 || lecture.file2) && (
-            <div className="mt-5">
-              <h2 className="text-xl font-bold mb-3">Preview Documents:</h2>
-              <div className="grid grid-cols-2 gap-4">
-                {lecture.file1 && (
-                  <div className="border rounded-lg p-2">
-                    <h3 className="font-semibold mb-2">Document 1</h3>
-                    <iframe
-                      src={`http://localhost:8000${lecture.file1}`}
-                      className="w-full h-[300px]"
-                      title="Document 1"
-                    />
-                  </div>
-                )}
-                {lecture.file2 && (
-                  <div className="border rounded-lg p-2">
-                    <h3 className="font-semibold mb-2">Document 2</h3>
-                    <iframe
-                      src={`http://localhost:8000${lecture.file2}`}
-                      className="w-full h-[300px]"
-                      title="Document 2"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          )} */}
+         
         </div>
       </div>
 
