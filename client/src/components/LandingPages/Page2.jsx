@@ -32,18 +32,9 @@ const Page2 = () => {
   }, []);
 
   return (
-    <div ref={pageRef} className="h-screen">
+    <div ref={pageRef} className="h-full">
       {/* Header Animation */}
-      <div
-        className={`p-4 border-b transition-all duration-1000 ${
-          isVisible ? "scale-100" : "scale-0"
-        }`}
-      >
-        <p className="text-6xl font-serif font-extrabold pb-5">Explore</p>
-        <p className="text-6xl font-serif font-extrabold">
-          all <span className="text-green-900">Features</span>...
-        </p>
-      </div>
+    
 
       {/* Boxes Animation */}
       <div

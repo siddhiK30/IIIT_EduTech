@@ -82,12 +82,11 @@ const NavBar = () => {
 
     return (
         <div className={`bg-gray-900 backdrop-blur-lg bg-opacity-80 shadow-2xl transition-all duration-500 
-                        border-b border-gray-800 ${
-            isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-        }`}>
+                        border-b border-gray-800 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+            }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
-                    <Link to="/" className="flex items-center group">
+                    <Link to="/home" className="flex items-center group">
                         <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 
                                      to-indigo-600 bg-clip-text text-transparent animate-gradient-x 
                                      transition-all duration-300 group-hover:scale-105">
@@ -96,10 +95,14 @@ const NavBar = () => {
                     </Link>
 
                     <nav className="hidden md:flex space-x-1">
-                        {['Home', 'Connect', 'ARClass'].map((item, index) => (
-                            <Link 
+                        <Link className='relative px-4 py-2 text-gray-300 font-medium rounded-lg 
+                                         transition-all duration-200 hover:text-white group' to={'/home'}>
+                            Home
+                        </Link>
+                        {['Connect', 'ARClass'].map((item, index) => (
+                            <Link
                                 key={item}
-                                to={item === 'ARClass' ? "http://127.0.0.1:5501/index.html" : ""}
+                                to={item === 'ARClass' ? "http://127.0.0.1:5500/client/src/utilities/index.html" : ""}
                                 target={item === 'ARClass' ? "_blank" : ""}
                                 rel={item === 'ARClass' ? "noopener noreferrer" : ""}
                                 className="relative px-4 py-2 text-gray-300 font-medium rounded-lg 
@@ -111,10 +114,10 @@ const NavBar = () => {
                                               duration-200 -z-0"></div>
                             </Link>
                         ))}
-                        
+
                         <div className="relative"
-                             onMouseEnter={() => setShowDropdown(true)}
-                             onClickCapture={() => setShowDropdown(false)}>
+                            onMouseEnter={() => setShowDropdown(true)}
+                            onClickCapture={() => setShowDropdown(false)}>
                             <button className="relative px-4 py-2 text-gray-300 font-medium rounded-lg 
                                            transition-all duration-200 hover:text-white group">
                                 <span className="relative z-10">Visualization</span>
@@ -127,18 +130,18 @@ const NavBar = () => {
                                               shadow-2xl bg-gray-900 border border-gray-800 backdrop-blur-lg 
                                               bg-opacity-90 transform transition-all duration-200">
                                     <div className="py-1">
-                                        <a href="http://127.0.0.1:5500/thesolsystem.html"
-                                           target="_blank"
-                                           rel="noopener noreferrer"
-                                           className="block px-4 py-3 text-sm text-gray-300 hover:text-white 
+                                        <a href="http://127.0.0.1:5500/client/src/utilities/thesolsystem.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block px-4 py-3 text-sm text-gray-300 hover:text-white 
                                                     transition-colors duration-200 hover:bg-gradient-to-r 
                                                     hover:from-purple-600 hover:to-pink-600">
                                             Solar System
                                         </a>
                                         <a href="chem3d/"
-                                           target="_blank"
-                                           rel="noopener noreferrer"
-                                           className="block px-4 py-3 text-sm text-gray-300 hover:text-white 
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block px-4 py-3 text-sm text-gray-300 hover:text-white 
                                                     transition-colors duration-200 hover:bg-gradient-to-r 
                                                     hover:from-purple-600 hover:to-pink-600">
                                             Second Option
