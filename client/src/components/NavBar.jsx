@@ -99,7 +99,11 @@ const NavBar = () => {
                                          transition-all duration-200 hover:text-white group' to={'/home'}>
                             Home
                         </Link>
-                        {['Connect', 'ARClass'].map((item, index) => (
+                        <Link className='relative px-4 py-2 text-gray-300 font-medium rounded-lg 
+                                         transition-all duration-200 hover:text-white group' to={'/connectIQ'}>
+                            Connect
+                        </Link>
+                        {['ARClass'].map((item, index) => (
                             <Link
                                 key={item}
                                 to={item === 'ARClass' ? "http://127.0.0.1:5500/client/src/utilities/index.html" : ""}
