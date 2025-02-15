@@ -99,9 +99,7 @@ const LecturePage1 = () => {
         id: resource.id,
         title: resource.title,
         uploadedDate: new Date(resource.created_at).toISOString().split('T')[0],
-        thumbnail: resource.video_thumbnail 
-          ? `http://localhost:8000${resource.video_thumbnail}`
-          : 'https://via.placeholder.com/150',
+        thumbnail: resource.video_thumbnail,
         videoUrl: resource.lecture 
           ? `http://localhost:8000${resource.lecture}` 
           : null,
@@ -159,7 +157,7 @@ const LecturePage1 = () => {
               <img
                 src={lecture.thumbnail}
                 alt={lecture.title}
-                className="w-full h-48 object-cover"
+                className="w-full h-50 object-cover"
               />
               {lecture.videoUrl && (
                 <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">

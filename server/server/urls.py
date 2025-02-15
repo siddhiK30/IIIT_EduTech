@@ -25,6 +25,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework import routers
+
+
+route = routers.DefaultRouter()
+route.register(r"blogs",BlogViewSet,basename="blogview")
 
 
 
@@ -35,12 +40,13 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('mentors/', MentorViewSet.as_view({'get': 'list', 'post':'create'}), name='mentors-list'),
     path('mentors/<int:pk>/', MentorViewSet.as_view({'get':'retrieve'}), name='mentors-detail'),
-    path('blog/',BlogViewSet.as_view({'get':'list','post':'create'}),name='Blogs'),
+    path('blog/', BlogViewSet.as_view({'get': 'list', 'post': 'create'}), name='Blogs'),
+    path('blog/<int:pk>/', BlogViewSet.as_view({'get': 'retrieve', 'delete': 'destroy'}), name='Blog-detail'),
     path('mcq/',include('mcq.urls')),
     path('bot/',include('bot.urls')),
     path('reports/',include('reports.urls')),
     path('quiz/',include('quiz.urls')),
-
     path('',include('lectures.urls')),
+    path('', include(route.urls)),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

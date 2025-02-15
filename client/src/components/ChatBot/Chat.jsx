@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Bot from '../../assests/Bot.jpg';
-import { FiPaperclip, FiMic, FiSend } from 'react-icons/fi';
+import { FiPaperclip, FiMic, FiSend, FiX } from 'react-icons/fi';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
 
@@ -8,18 +8,15 @@ const genAI = new GoogleGenerativeAI("AIzaSyApZd8uGx6WJ0EGHEf9xelRoMaSojFrycg");
 
 // Utility functions
 const cleanResponse = (text) => {
-  // Remove markdown-style formatting
   let cleaned = text
-    .replace(/\*\*/g, '') // Remove bold markers
-    .replace(/\*/g, '')   // Remove italic markers
-    .replace(/`/g, '')    // Remove code markers
-    .replace(/#{1,6}\s/g, '') // Remove heading markers
-    .replace(/\n\s*\n/g, '\n') // Replace multiple newlines with single newline
+    .replace(/\*\*/g, '')
+    .replace(/\*/g, '')
+    .replace(/`/g, '')
+    .replace(/#{1,6}\s/g, '')
+    .replace(/\n\s*\n/g, '\n')
     .trim();
 
-  // Format lists properly
   cleaned = cleaned.split('\n').map(line => {
-    // Remove markdown list markers but keep the content
     return line.replace(/^[-*•]\s+/, '• ').trim();
   }).join('\n');
 
@@ -27,7 +24,6 @@ const cleanResponse = (text) => {
 };
 
 const formatResponse = (text) => {
-  // Split into paragraphs and format each
   const paragraphs = text.split('\n').filter(p => p.trim());
   
   return paragraphs.map((paragraph, index) => (
@@ -38,7 +34,7 @@ const formatResponse = (text) => {
   ));
 };
 
-const Chat = () => {
+const Chat = ({ isOpen, toggleChat }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isRecording, setIsRecording] = useState(false);
@@ -46,7 +42,6 @@ const Chat = () => {
   const [documentContext, setDocumentContext] = useState(null);
   const messagesEndRef = useRef(null);
 
-  // Auto scroll to bottom when new messages arrive
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -54,6 +49,9 @@ const Chat = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // If chat is not open, don't render anything
+  if (!isOpen) return null;
 
   const handleSendMessage = async () => {
     if (inputMessage.trim()) {
@@ -214,25 +212,33 @@ const Chat = () => {
   );
 
   return (
-    <div className='flex justify-center h-screen bg-gray-100 p-4'>
-      <div className='w-full max-w-2xl h-[90vh] border rounded-2xl bg-white shadow-lg'>
+    <div className="fixed bottom-24 right-6 z-50 animate-slideUp">
+      <div className='w-[400px] h-[600px] border rounded-2xl bg-white shadow-lg'>
         {/* Header */}
-        <div className='w-full h-[80px] bg-gray-100 rounded-t-2xl py-2 px-5 flex items-center border-b'>
-          <img 
-            className="w-12 h-12 rounded-full ring-2 ring-gray-300" 
-            src={Bot} 
-            alt="Bot avatar" 
-          />
-          <div className='ml-3'>
-            <h3 className='font-semibold text-lg'>AI Assistant</h3>
-            <p className='text-sm text-gray-500'>
-              {fileProcessing ? 'Processing...' : 'Online'}
-            </p>
+        <div className='w-full h-[80px] bg-gray-100 rounded-t-2xl py-2 px-5 flex items-center justify-between border-b'>
+          <div className="flex items-center">
+            <img 
+              className="w-12 h-12 rounded-full ring-2 ring-gray-300" 
+              src={Bot} 
+              alt="Bot avatar" 
+            />
+            <div className='ml-3'>
+              <h3 className='font-semibold text-lg'>AI Assistant</h3>
+              <p className='text-sm text-gray-500'>
+                {fileProcessing ? 'Processing...' : 'Online'}
+              </p>
+            </div>
           </div>
+          <button 
+            onClick={toggleChat}
+            className="p-2 hover:bg-gray-200 rounded-full transition-colors duration-200"
+          >
+            <FiX className="w-6 h-6" />
+          </button>
         </div>
 
         {/* Chat Messages */}
-        <div className='h-[calc(90vh-160px)] overflow-y-auto p-4'>
+        <div className='h-[calc(600px-160px)] overflow-y-auto p-4'>
           {messages.map((message, index) => renderMessage(message, index))}
           <div ref={messagesEndRef} />
         </div>
@@ -261,7 +267,7 @@ const Chat = () => {
             </button>
 
             <button 
-              className='p-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white disabled:bg-gray-300'
+              className='p-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white disabled:bg-gray-300 transition-colors duration-200'
               onClick={handleSendMessage}
               disabled={fileProcessing || !inputMessage.trim()}
             >
@@ -275,6 +281,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
-
-

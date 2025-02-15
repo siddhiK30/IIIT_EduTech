@@ -44,7 +44,7 @@ const SignIn = () => {
 
     if(isAuthenticated){
       console.log(userInfo)
-      navigate('/')
+      navigate('/home')
       return;
   }
 

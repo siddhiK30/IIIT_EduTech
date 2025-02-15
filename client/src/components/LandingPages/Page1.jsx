@@ -20,36 +20,24 @@ const Page1 = () => {
         };
     }, []);
     return (
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-row h-[80vh] w-[90vw] mx-auto gap-64">
             {/* Text Section Animation */}
             <div
-                className={`text-center text-5xl font-serif mt-10 transform transition-transform duration-1000 ease-out ${animateText ? "scale-100" : "scale-0"
+                className={`mt-40 text-center text-5xl font-serif pt-5 transform transition-transform duration-1000 ease-out ${animateText ? "scale-100" : "scale-0"
                     }`}
             >
-                <p className='pb-2'>Find the best <span className='bg-green-700 rounded-4xl px-4'>AI Learning</span></p>
+                <p className='pb-2'>Find the best <span className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 
+                                     to-indigo-600 bg-clip-text text-transparent animate-gradient-x 
+                                     transition-all duration-300 group-hover:scale-105">
+                            AI Learning
+                        </span> </p>
                 <p>for growth of your skills & define</p>
-                <p>your <span className='bg-yellow-300 rounded-4xl px-4'>career</span>path.</p>
+                <p>your career.</p>
+            </div>
+            <div className='w-[380px] h-[400px] bg-orange-400 mt-32 bg-[url(https://miro.medium.com/v2/resize:fit:1280/1*KnysljyGv_C1hi9rBSUAKg.gif)]  bg-cover'>
+                
             </div>
 
-            {/* Boxes Section Animation */}
-            <div
-                className={`w-[80vw] h-[60vh] mx-auto mt-5 flex justify-between items-center gap-4 transition-all duration-1000 ease-out ${animateBoxes
-                        ? "translate-y-0 opacity-100"
-                        : "translate-y-[500px] opacity-0"
-                    }`}
-            >
-                <div className="w-full h-[30vh] rounded-2xl bg-yellow-200 "></div>
-                <div className="w-full h-[45vh] flex flex-col gap-3 hover:scale-110 transition ease-linear">
-                    <div className='w-full h-1/2 bg-red-400 rounded-2xl hover:scale-110 transition ease-linear'></div>
-                    <div className='w-full h-1/2 bg-red-200 rounded-2xl hover:scale-110 transition ease-linear'></div>
-                </div>
-                <div className="w-full h-full bg-orange-300 hover:scale-110 transition ease-linear text-center rounded-2xl">Images or something can be added</div>
-                <div className="w-full h-[45vh] flex flex-col gap-3  rounded-2xl">
-                    <div className='w-full h-1/2 bg-red-400 rounded-2xl hover:scale-110 transition ease-linear'></div>
-                    <div className='w-full h-1/2 bg-red-200 rounded-2xl hover:scale-110 transition ease-linear'></div>
-                </div>
-                <div className="w-full h-[30vh] bg-blue-500 hover:scale-110 transition ease-linear rounded-2xl"></div>
-            </div>
         </div>
     )
 }
