@@ -34,7 +34,7 @@ const Page1 = () => {
                 <p>for growth of your skills & define</p>
                 <p>your career.</p>
             </div>
-            <div className='w-[380px] h-[400px] bg-orange-400 mt-32 bg-[url(https://miro.medium.com/v2/resize:fit:1280/1*KnysljyGv_C1hi9rBSUAKg.gif)]  bg-cover'>
+            <div className='w-[380px] h-[400px] mt-32 bg-[url(https://miro.medium.com/v2/resize:fit:1280/1*KnysljyGv_C1hi9rBSUAKg.gif)]  bg-cover'>
                 
             </div>
 

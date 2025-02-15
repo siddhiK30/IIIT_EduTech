@@ -44,7 +44,7 @@ const Page2 = () => {
       >
         <Link
           to={"/assessment"}
-          className="h-[50vh] bg-red-100 rounded-3xl flex flex-col items-center hover:bg-radial-[at_50%_25%] from-white to-zinc-900 to-75% hover:text-white hover:scale-110 transition ease-linear"
+          className="h-[50vh] bg-gradient-to-br from-purple-600 to-blue-500 rounded-3xl flex flex-col items-center text-white shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-400"
         >
           <div className="w-[125px] h-[125px] rounded-full mt-3">
             <img src={Assessmet} alt="" />
@@ -62,7 +62,7 @@ const Page2 = () => {
         </Link>
         <Link
           to={"/core_learning"}
-          className="h-[50vh] bg-red-100 rounded-3xl flex flex-col items-center hover:bg-radial-[at_50%_25%] from-white to-zinc-900 to-75% hover:text-white hover:scale-110 transition ease-linear"
+          className="h-[50vh] bg-gradient-to-br from-purple-600 to-blue-500 rounded-3xl flex flex-col items-center text-white shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-400"
         >
           <div className="w-[125px] h-[125px] rounded-full mt-2">
             <img src={Core} alt="" />
@@ -80,7 +80,7 @@ const Page2 = () => {
         </Link>
         <Link
           to={"/enangement"}
-          className="h-[50vh] bg-red-100 rounded-3xl flex flex-col items-center hover:bg-radial-[at_50%_25%] from-white to-zinc-900 to-75% hover:text-white hover:scale-110 transition ease-linear"
+          className="h-[50vh] bg-gradient-to-br from-purple-600 to-blue-500 rounded-3xl flex flex-col items-center text-white shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-400"
         >
           <div className="w-[125px] h-[125px] rounded-full mt-2">
             <img src={Enangement} alt="" />
@@ -98,7 +98,7 @@ const Page2 = () => {
         </Link>
         <Link
           to={"/support"}
-          className="h-[50vh] bg-red-100 rounded-3xl flex flex-col items-center hover:bg-radial-[at_50%_25%] from-white to-zinc-900 to-75% hover:text-white hover:scale-110 transition ease-linear"
+          className="h-[50vh] bg-gradient-to-br from-purple-600 to-blue-500 rounded-3xl flex flex-col items-center text-white shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-400"
         >
           <div className="w-[125px] h-[125px] rounded-full mt-2">
             <img src={Support} alt="" />
