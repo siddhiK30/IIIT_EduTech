@@ -50,11 +50,11 @@ const BlogDetail = () => {
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative h-96"
+                className="relative h-66"
             >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-90" />
                 <div className="absolute top-4 left-4">
-                    <Link to="/">
+                    <Link to="">
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
