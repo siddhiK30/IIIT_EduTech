@@ -192,7 +192,7 @@ const Blogs = () => {
                 Read Your <span className='text-sky-800'>Personalised</span> Blogs
             </h1>
             <div className='flex overflow-x-hidden mt-10 border-b-8 pb-8'>
-                <Link to={"/blog/id"} className={`flex h-[300px] space-x-5 ${isPaused ? 'animate-marquee' : 'animate-marquee'}`}>
+                <Link to={"/blogDetail"} className={`flex h-[300px] space-x-5 ${isPaused ? 'animate-marquee' : 'animate-marquee'}`}>
                     {blog.map((blog, index) => (
                         <div key={index} className='min-w-[300px] bg-white shadow-lg rounded-lg p-5'>
                             <h2 className='text-2xl font-bold pb-3'>{blog.title}</h2>

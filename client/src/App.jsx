@@ -12,6 +12,7 @@ import Chat from './components/ChatBot/Chat';
 import Quiz from './components/Quiz';
 import SolarSystem from './components/SolarSystem';
 import QRCodeList from './components/QRCodeList';
+import BlogDetail from './components/Engagement/BlogDetail';
 
 
 
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/core_learning" element={<LecturePage1/>} />
             <Route path="/core_learning/mentor/:id" element={<LecturePage1/>} />
             <Route path="/enangement" element={<Blogs/>} />
+            <Route path="/blogDetail" element={<BlogDetail/>} />
             <Route path="/lecture/:id" element={<LectureDetailPage/>} />
             <Route path="/support" element={<Chat/>} />
             <Route path="/quiz" element={<Quiz/>} />
