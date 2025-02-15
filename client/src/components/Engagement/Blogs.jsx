@@ -38,6 +38,14 @@ const Blogs = () => {
         if (content.trim()) {
             const blogData = { title, author: name, keytopics: topics, content };
             dispatch(postBlog(blogData));
+            setContent('');
+            setActiveSection('read');
+            setTitle('');
+            setName('');
+            setTopic('');
+            console.log('Form submitted');
+            window.location.reload();
+            
         }
     };
 
