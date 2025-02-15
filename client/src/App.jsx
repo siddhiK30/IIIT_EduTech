@@ -18,6 +18,8 @@ import Quiz from './components/AssessmentsPages/Quiz';
 import Chat from './components/ChatBot/Chat';
 import ChatBotIcon from './components/ChatBot/ChatBotIcon';
 import ConnectIQ from './components/ConnectIQ';
+import Visualisation from './components/Visualisation.jsx/Visualisation';
+import Chat1 from './components/ChatBot/Chat1';
 
 const App = () => {
   const location = useLocation();
@@ -27,7 +29,7 @@ const App = () => {
   const noNavBarRoutes = ['/signin', '/'];
   
   // Routes where ChatBot should not be displayed
-  const noChatBotRoutes = ['/signin', '/', '/support'];
+  const noChatBotRoutes = ['/signin'];
 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
@@ -48,11 +50,12 @@ const App = () => {
         <Route path="/enangement" element={<Blogs />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/lecture/:id" element={<LectureDetailPage />} />
-        <Route path="/support" element={<Chat />} />
+        <Route path="/support" element={<Chat1 />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/solar" element={<SolarSystem />} />
         <Route path="/chem3d" element={<QRCodeList />} />
         <Route path="/connectIQ" element={<ConnectIQ />} />
+        <Route path="/visualise" element={<Visualisation />} />
       </Routes>
 
       {/* Render ChatBot Icon and Chat component if not in excluded routes */}
